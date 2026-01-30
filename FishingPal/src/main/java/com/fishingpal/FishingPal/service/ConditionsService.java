@@ -1,16 +1,34 @@
 package com.fishingpal.FishingPal.service;
 
 import com.fishingpal.FishingPal.api.dto.*;
+import com.fishingpal.FishingPal.domain.weather.WeatherSnapshot;
+import com.fishingpal.FishingPal.infrastructure.weather.WeatherProvider;
+
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 @Service
 public class ConditionsService {
 
+    private static final Logger log = LoggerFactory.getLogger(ConditionsService.class);
+
+    private final WeatherProvider weatherProvider;
+
+    public ConditionsService(WeatherProvider weatherProvider) {
+        this.weatherProvider = weatherProvider;
+    }
+
     public ConditionsResponseDto getCurrentConditions() {
+
+        log.info("Fetching current weather for lat=56.9, lon=24.1");
+        WeatherSnapshot weather = weatherProvider.getCurrentWeather(56.9, 24.1);
+        log.debug("Weather snapshot received: {}", weather);
+
         return new ConditionsResponseDto(
                 new LocationDto("aiviekste-city", "Aiviekste City"),
                 Instant.now(),
