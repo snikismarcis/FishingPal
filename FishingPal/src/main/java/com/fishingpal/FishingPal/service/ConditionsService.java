@@ -12,6 +12,7 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 @Service
 public class ConditionsService {
 
@@ -27,7 +28,13 @@ public class ConditionsService {
 
         log.info("Fetching current weather for lat=56.9, lon=24.1");
         WeatherSnapshot weather = weatherProvider.getCurrentWeather(56.9, 24.1);
-        log.debug("Weather snapshot received: {}", weather);
+        log.info(
+            "Weather debug: temp={}°C, pressure={} hPa, wind={} m/s, precip={} mm",
+            weather.getTemperature(),
+            weather.getPressure(),
+            weather.getWindSpeed(),
+            weather.getPrecipitation()
+        );
 
         return new ConditionsResponseDto(
                 new LocationDto("aiviekste-city", "Aiviekste City"),
@@ -36,13 +43,13 @@ public class ConditionsService {
                 "Good conditions for bream and perch",
                 Map.of(
                         "airPressure", new MetricDto(
-                                1012.0,
+                                weather.getPressure(),
                                 "hPa",
                                 "FALLING",
                                 "Falling pressure often increased feeding activity."
                         ),
                         "airTemperature", new MetricDto(
-                                14.0,
+                                weather.getTemperature(),
                                 "°C",
                                 "STABLE",
                                 "Moderate temperature supports steady metabolism."

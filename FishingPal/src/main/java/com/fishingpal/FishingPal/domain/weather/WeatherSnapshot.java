@@ -23,11 +23,32 @@ public class WeatherSnapshot {
         this.precipitation = precipitation;
         this.timestamp = timestamp;
     }
+
+    public double getTemperature() {
+        return temperature;
+    }
+    
+    public double getPressure() {
+        return pressure;
+    }
+    public double getWindSpeed() {
+        return windSpeed;
+    }
+    public double getPrecipitation() {
+        return precipitation;
+    }
+    public Instant getTimestamp() {
+        return timestamp;
+    }
+
     @Override
     public String toString() {
-        return String.format(
-            "Temp=%.1f°C, Pressure=%.1fhPa, Wind=%.1fm/s, Precip=%.1fmm",
-            temperature, pressure, windSpeed, precipitation
-        );
+        return "Weather snapshot{ " +
+        "temperature" + temperature +
+        "pressure" + pressure +
+        "windSpeed" + windSpeed +
+        "precipitation" + precipitation +
+        "timestamp" + timestamp +
+        "}";
     }
 }
