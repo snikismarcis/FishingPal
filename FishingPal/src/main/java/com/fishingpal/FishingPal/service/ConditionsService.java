@@ -1,14 +1,17 @@
 package com.fishingpal.FishingPal.service;
 
-import com.fishingpal.FishingPal.api.dto.*;
+import com.fishingpal.FishingPal.api.dto.ConditionsResponseDto;
+import com.fishingpal.FishingPal.api.dto.LocationDto;
+import com.fishingpal.FishingPal.api.dto.MetricAssessmentDto;
+import com.fishingpal.FishingPal.domain.MetricAssessment;
 import com.fishingpal.FishingPal.domain.weather.WeatherSnapshot;
 import com.fishingpal.FishingPal.infrastructure.weather.WeatherProvider;
+import com.fishingpal.FishingPal.service.evaluator.MetricEvaluator;
 
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,64 +22,41 @@ public class ConditionsService {
     private static final Logger log = LoggerFactory.getLogger(ConditionsService.class);
 
     private final WeatherProvider weatherProvider;
+    private final List<MetricEvaluator> evaluators;
+    private final ConditionsAggregator aggregator;
 
-    public ConditionsService(WeatherProvider weatherProvider) {
+    public ConditionsService(WeatherProvider weatherProvider,
+                             List<MetricEvaluator> evaluators,
+                             ConditionsAggregator aggregator) {
         this.weatherProvider = weatherProvider;
+        this.evaluators = evaluators;
+        this.aggregator = aggregator;
     }
 
-    public ConditionsResponseDto getCurrentConditions() {
+    public ConditionsResponseDto getCurrentConditions(double lat, double lon) {
+        log.info("Fetching current weather for lat={}, lon={}", lat, lon);
+        WeatherSnapshot weather = weatherProvider.getCurrentWeather(lat, lon);
 
-        log.info("Fetching current weather for lat=56.9, lon=24.1");
-        WeatherSnapshot weather = weatherProvider.getCurrentWeather(56.9, 24.1);
-        log.info(
-            "Weather debug: temp={}°C, pressure={} hPa, wind={} m/s, precip={} mm",
-            weather.getTemperature(),
-            weather.getPressure(),
-            weather.getWindSpeed(),
-            weather.getPrecipitation()
-        );
+        List<MetricAssessment> assessments = evaluators.stream()
+                .map(e -> e.evaluate(weather))
+                .toList();
+
+        String summary = aggregator.summarize(assessments);
+
+        List<MetricAssessmentDto> metricDtos = assessments.stream()
+                .map(a -> new MetricAssessmentDto(
+                        a.metricName(),
+                        a.value(),
+                        a.unit(),
+                        a.favorability().name(),
+                        a.reasoning()))
+                .toList();
 
         return new ConditionsResponseDto(
-                new LocationDto("aiviekste-city", "Aiviekste City"),
+                new LocationDto(String.format("%.4f,%.4f", lat, lon),
+                        String.format("%.2f°N, %.2f°E", lat, lon)),
                 Instant.now(),
-                72,
-                "Good conditions for bream and perch",
-                Map.of(
-                        "airPressure", new MetricDto(
-                                weather.getPressure(),
-                                "hPa",
-                                "FALLING",
-                                "Falling pressure often increased feeding activity."
-                        ),
-                        "airTemperature", new MetricDto(
-                                weather.getTemperature(),
-                                "°C",
-                                "STABLE",
-                                "Moderate temperature supports steady metabolism."
-                        )
-                ),
-                List.of(
-                new SpeciesRecommendationDto(
-                    "BREAM",
-                    78,
-                    List.of(
-                        new ScoreFactorDto("PRESSURE_TREND", 10),
-                        new ScoreFactorDto("TEMPERATURE", 8)
-                    )
-                ),
-                new SpeciesRecommendationDto(
-                    "PERCH",
-                    65,
-                    List.of(
-                        new ScoreFactorDto("WIND_STABILITY", 7),
-                        new ScoreFactorDto("TEMPERATURE", 6)
-                    )
-                )
-            ),
-            List.of(
-                new ScoreFactorDto("PRESSURE_TREND", 18),
-                new ScoreFactorDto("TEMPERATURE", 12)
-            )
-        );
+                summary,
+                metricDtos);
     }
 }

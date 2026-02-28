@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.time.Instant;
 import java.util.List;
-import java.util.Map;
 
 @Data
 @NoArgsConstructor
@@ -13,9 +12,6 @@ import java.util.Map;
 public class ConditionsResponseDto {
     private LocationDto location;
     private Instant timestamp;
-    private int score;
     private String summary;
-    private Map<String, MetricDto> metrics;
-    private List<SpeciesRecommendationDto> speciesRecommendations;
-    private List<ScoreFactorDto> scoreFactors;
+    private List<MetricAssessmentDto> metrics;
 }

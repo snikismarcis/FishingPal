@@ -6,6 +6,7 @@ public class WeatherSnapshot {
 
     private final double temperature;
     private final double pressure;
+    private final double previousPressure;
     private final double windSpeed;
     private final double precipitation;
     private final Instant timestamp;
@@ -13,12 +14,14 @@ public class WeatherSnapshot {
     public WeatherSnapshot(
             double temperature,
             double pressure,
+            double previousPressure,
             double windSpeed,
             double precipitation,
             Instant timestamp
     ) {
         this.temperature = temperature;
         this.pressure = pressure;
+        this.previousPressure = previousPressure;
         this.windSpeed = windSpeed;
         this.precipitation = precipitation;
         this.timestamp = timestamp;
@@ -27,28 +30,36 @@ public class WeatherSnapshot {
     public double getTemperature() {
         return temperature;
     }
-    
+
     public double getPressure() {
         return pressure;
     }
+
+    public double getPreviousPressure() {
+        return previousPressure;
+    }
+
     public double getWindSpeed() {
         return windSpeed;
     }
+
     public double getPrecipitation() {
         return precipitation;
     }
+
     public Instant getTimestamp() {
         return timestamp;
     }
 
     @Override
     public String toString() {
-        return "Weather snapshot{ " +
-        "temperature" + temperature +
-        "pressure" + pressure +
-        "windSpeed" + windSpeed +
-        "precipitation" + precipitation +
-        "timestamp" + timestamp +
-        "}";
+        return "WeatherSnapshot{" +
+                "temperature=" + temperature +
+                ", pressure=" + pressure +
+                ", previousPressure=" + previousPressure +
+                ", windSpeed=" + windSpeed +
+                ", precipitation=" + precipitation +
+                ", timestamp=" + timestamp +
+                '}';
     }
 }
