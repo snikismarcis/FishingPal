@@ -1,8 +1,6 @@
 package com.fishingpal.FishingPal.infrastructure.weather;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -23,39 +21,49 @@ public class OpenMeteoWeather implements WeatherProvider {
     public WeatherSnapshot getCurrentWeather(double lat, double lon) {
 
         String url = String.format(
-                "https://api.open-meteo.com/v1/forecast" +
-                        "?latitude=%f&longitude=%f" +
-                        "&hourly=surface_pressure,precipitation" +
-                        "&current_weather=true",
-                lat, lon);
+            "https://api.open-meteo.com/v1/forecast" +
+            "?latitude=%f&longitude=%f" +
+            "&daily=temperature_2m_max,temperature_2m_min,apparent_temperature_min,apparent_temperature_max," +
+            "sunrise,sunset,daylight_duration,sunshine_duration,uv_index_max,precipitation_sum," +
+            "wind_speed_10m_max,wind_direction_10m_dominant" +
+            "&hourly=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation_probability," +
+            "precipitation,surface_pressure,cloud_cover,wind_speed_10m,wind_direction_10m" +
+            "&current=temperature_2m,apparent_temperature,relative_humidity_2m,is_day,precipitation," +
+            "cloud_cover,surface_pressure,wind_speed_10m,wind_direction_10m" +
+            "&timezone=auto" +
+            "&wind_speed_unit=ms",
+            lat, lon
+        );
 
         OpenMeteoResponse response = restTemplate.getForObject(url, OpenMeteoResponse.class);
 
-        // Find the current hour index from the hourly time array
-        int currentIndex = findCurrentHourIndex(response.hourly.time, response.current_weather.time);
+        int currentIndex = findCurrentHourIndex(response.hourly.time, response.current.time);
 
         double pressure = response.hourly.surface_pressure.get(currentIndex);
         double previousPressure = currentIndex > 0
-                ? response.hourly.surface_pressure.get(currentIndex - 1)
-                : pressure;
+            ? response.hourly.surface_pressure.get(currentIndex - 1)
+            : pressure;
         double precipitation = response.hourly.precipitation.get(currentIndex);
 
-        log.info("Weather fetched: temp={}°C, pressure={} hPa, prevPressure={} hPa, wind={} km/h, precip={} mm/h",
-                response.current_weather.temperature, pressure, previousPressure,
-                response.current_weather.windspeed, precipitation);
+        log.info("Weather fetched: temp={}°C, pressure={} hPa, prevPressure={} hPa, wind={} m/s, precip={} mm/h",
+            response.current.temperature_2m, pressure, previousPressure,
+            response.current.wind_speed_10m, precipitation
+        );
 
         return new WeatherSnapshot(
-                response.current_weather.temperature,
-                pressure,
-                previousPressure,
-                response.current_weather.windspeed,
-                precipitation,
-                Instant.now());
+            response.current.temperature_2m,
+            pressure,
+            previousPressure,
+            response.current.wind_speed_10m,
+            precipitation,
+            Instant.now()
+        );
     }
 
     private int findCurrentHourIndex(List<String> hourlyTimes, String currentTime) {
-        // current_weather.time is like "2026-02-28T15:00" — match the hour
+        // current.weather.time is like "2026-02-28T15:00" — match the hour
         String currentHour = currentTime.substring(0, 13); // "2026-02-28T15"
+        log.info("Current Hour=" + currentHour + " Current Time=" + currentTime);
         for (int i = 0; i < hourlyTimes.size(); i++) {
             if (hourlyTimes.get(i).startsWith(currentHour)) {
                 return i;

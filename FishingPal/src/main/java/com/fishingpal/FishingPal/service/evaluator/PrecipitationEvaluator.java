@@ -17,16 +17,16 @@ public class PrecipitationEvaluator implements MetricEvaluator {
 
         if (precip < 0.1) {
             favorability = Favorability.NEUTRAL;
-            reasoning = "No significant precipitation. Stable conditions with no rain-triggered feeding activity.";
+            reasoning = "No significant precipitation. Stable conditions with no rain-triggered feeding activity. Let's see how the fish are feeling today. :)";
         } else if (precip <= 4) {
             favorability = Favorability.FAVORABLE;
             reasoning = String.format(
-                    "Light to moderate rain (%.1f mm/h). Rain increases oxygen levels and washes insects into the water, triggering feeding.",
+                    "Light to moderate rain (%.1f mm/h). Rain increases oxygen levels in water, makes insects fly lower and washes minerals from shore into water, triggering feeding near shore.",
                     precip);
         } else {
             favorability = Favorability.UNFAVORABLE;
             reasoning = String.format(
-                    "Heavy rain (%.1f mm/h). Excessive turbidity and strong currents make feeding difficult for fish.",
+                    "Heavy rain (%.1f mm/h). Excessive turbidity and strong water disturbance from rain can make feeding difficult for fish, as well as scare the fish into hiding.",
                     precip);
         }
 
