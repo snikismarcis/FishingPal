@@ -18,7 +18,7 @@ public class TemperatureEvaluator implements MetricEvaluator {
         if (temp < 4) {
             favorability = Favorability.UNFAVORABLE;
             reasoning = String.format(
-                    "Temperature is very low (%.1f°C). Cold water slows fish metabolism significantly.", temp);
+                    "Temperature is very low (%.1f°C). Cold water slows fish metabolism significantly. This does not affect winter fishing, since temperatue in water is stable regardless.", temp);
         } else if (temp < 8) {
             favorability = Favorability.NEUTRAL;
             reasoning = String.format(

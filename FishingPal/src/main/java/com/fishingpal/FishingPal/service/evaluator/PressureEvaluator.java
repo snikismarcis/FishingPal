@@ -22,17 +22,17 @@ public class PressureEvaluator implements MetricEvaluator {
         if (change < -RAPID_CHANGE_THRESHOLD) {
             favorability = Favorability.FAVORABLE;
             reasoning = String.format(
-                    "Pressure dropping rapidly (%.1f hPa/hr). Falling pressure often triggers pre-front feeding activity.",
+                    "Pressure dropping rapidly (%.1f hPa/hr). Steadily falling pressure usually means lower light level -> hunting adventage for predatory fish before they settle for worse weather conditions.",
                     change);
         } else if (change > RAPID_CHANGE_THRESHOLD) {
             favorability = Favorability.UNFAVORABLE;
             reasoning = String.format(
-                    "Pressure rising rapidly (+%.1f hPa/hr). Post-front conditions often cause fish lethargy.",
+                    "Pressure rising rapidly (+%.1f hPa/hr). Rapid change conditions often cause fish lethargy, fish are less likely to be feeding.",
                     change);
         } else {
             favorability = Favorability.NEUTRAL;
             reasoning = String.format(
-                    "Pressure is stable (%.1f hPa/hr change). Steady conditions mean normal fish activity.",
+                    "Pressure is stable (%.1f hPa/hr change). Steady conditions mean normal fish activity. Some might be hungry, others - not so much.",
                     change);
         }
 
