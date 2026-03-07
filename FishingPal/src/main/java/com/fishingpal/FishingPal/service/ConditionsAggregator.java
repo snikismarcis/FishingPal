@@ -9,19 +9,36 @@ import java.util.List;
 @Component
 public class ConditionsAggregator {
 
-    public String summarize(List<MetricAssessment> assessments) {
-        long favorableCount = assessments.stream()
-                .filter(a -> a.favorability() == Favorability.FAVORABLE)
+    public Favorability aggregate(List<MetricAssessment> metrics) {
+
+        boolean anyUnfavorable = metrics.stream()
+                .anyMatch(m -> m.favorability() == Favorability.UNFAVORABLE);
+
+        long favorableCount = metrics.stream()
+                .filter(m -> m.favorability() == Favorability.FAVORABLE)
                 .count();
-        boolean anyUnfavorable = assessments.stream()
-                .anyMatch(a -> a.favorability() == Favorability.UNFAVORABLE);
 
         if (anyUnfavorable) {
-            return "Challenging conditions — some environmental factors are unfavorable for fishing.";
+            return Favorability.UNFAVORABLE;
         }
-        if (favorableCount == assessments.size()) {
-            return "Highly favorable conditions — all environmental factors support good fishing activity.";
+
+        if (favorableCount == metrics.size()) {
+            return Favorability.FAVORABLE;
         }
-        return "Conditions are mixed — some factors are favorable while others are neutral.";
+
+        return Favorability.NEUTRAL;
+    }
+
+    public String summarize(List<MetricAssessment> metrics) {
+        Favorability overall = aggregate(metrics);
+
+        switch (overall) {
+            case FAVORABLE:
+                return "Highly favorable conditions — all environmental factors support good fishing activity.";
+            case UNFAVORABLE:
+                return "Challenging conditions — some environmental factors are unfavorable for fishing.";
+            default:
+                return "Conditions are mixed — some factors are favorable while others are neutral.";
+        }
     }
 }

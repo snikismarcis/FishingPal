@@ -1,0 +1,24 @@
+{
+  "metric": "precipitation",
+  "unit": "mm/h",
+  "rules": [
+    {
+      "min": 0.0,
+      "max": 0.1,
+      "favorability": "NEUTRAL",
+      "reason": "No significant precipitation. Stable conditions with no rain-triggered feeding activity."
+    },
+    {
+      "min": 0.1,
+      "max": 4.0,
+      "favorability": "FAVORABLE",
+      "reason": "Light to moderate rain increases oxygen levels, washes nutrients into the water, and pushes insects lower, often triggering feeding."
+    },
+    {
+      "min": 4.0,
+      "max": 100.0,
+      "favorability": "UNFAVORABLE",
+      "reason": "Heavy rain causes strong water disturbance and turbidity, which can reduce fish visibility and feeding activity."
+    }
+  ]
+}
