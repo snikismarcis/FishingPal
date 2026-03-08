@@ -1,0 +1,9 @@
+{
+  "devDependencies": {
+    "@types/react": "^19.2.14",
+    "tailwindcss": "^4.2.1"
+  },
+  "dependencies": {
+    "jsx-runtime": "^1.2.0"
+  }
+}
