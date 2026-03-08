@@ -20,6 +20,9 @@ export default function Dashboard() {
       return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+    const fadeDistance = 300;
+    const fadeProgress = Math.min(scrollY / fadeDistance, 1);
+
   return (
     <div className="min-h-screen w-full overflow-x-hidden">
 
@@ -41,7 +44,7 @@ export default function Dashboard() {
 
 
         <div className="absolute left-0 top-0 h-full z-10 flex items-center justify-center"
-        style={{ opacity: 1 - Math.min(scrollY / 100, 1) }}
+        style={{ opacity: 1 - fadeProgress }}
         >
           <h1
             className="text-[7vw] font-bold tracking-wider leading-[0.8em] select-none"
@@ -56,29 +59,37 @@ export default function Dashboard() {
         </div>
 
         <div
-          className={`absolute top-4 left-4 text-2xl font-bold z-30 transition-colors duration-500 ${
-            scrollY < 100 ? "text-white" : "text-blue-600"
-          }`}
+          className={`fixed top-4 left-4 text-2xl font-bold z-30 transition-all duration-500 
+            ${fadeProgress === 1 ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2"}
+            ${scrollY < 600 ? "text-white" : "text-blue-600"}
+            `}
         >
           FishingPal
         </div>
 
         {/* Navbar on top-right */}
         <nav
-          className={`fixed top-0 right-0 z-40 flex gap-6 p-4 transition-colors duration-500 ${
-            scrollY < 300 ? "bg-transparent text-white" : "bg-white text-blue-600"
+          className={`fixed top-4 right-6 z-40 flex items-center gap-3 px-3 py-2 rounded-xl
+          backdrop-blur-md transition-all duration-500
+          ${
+            fadeProgress === 1
+              ? "bg-white shadow-md text-black-600"
+              : "bg-transparent text-white"
           }`}
         >
-          {["Conditions", "Calendar", "Log", "Community", "Knowledge"].map(
-            (item) => (
-              <button
-                key={item}
-                className="px-3 py-1 hover:bg-white/20 rounded transition"
-              >
-                {item}
-              </button>
-            )
-          )}
+          {["Conditions", "Calendar", "Log", "Community", "Knowledge"].map((item) => (
+            <button
+              key={item}
+              className={`px-3 py-1 text-sm rounded-lg transition-all duration-200
+              ${
+                fadeProgress === 1
+                  ? "hover:bg-blue-600 hover:text-white"
+                  : "hover:bg-white/20 hover:text-white"
+              }`}
+            >
+              {item}
+            </button>
+          ))}
         </nav>
 
         {/* Today's Fishing Conditions at bottom */}
