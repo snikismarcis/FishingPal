@@ -26,9 +26,7 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen w-full overflow-x-hidden">
 
-      {/* HERO / FULL SCREEN VIDEO */}
       <section className="relative h-screen w-full">
-        {/* Video */}
         <video
           autoPlay
           muted
@@ -39,9 +37,7 @@ export default function Dashboard() {
           <source src="/hero-video.mp4" type="video/mp4" />
         </video>
 
-        {/* Overlay */}
         <div className="absolute inset-0 bg-black/30"></div>
-
 
         <div className="absolute left-0 top-0 h-full z-10 flex items-center justify-center"
         style={{ opacity: 1 - fadeProgress }}
@@ -67,7 +63,6 @@ export default function Dashboard() {
           FishingPal
         </div>
 
-        {/* Navbar on top-right */}
         <nav
           className={`fixed top-4 right-6 z-40 flex items-center gap-3 px-3 py-2 rounded-xl
           backdrop-blur-md transition-all duration-500
@@ -92,14 +87,14 @@ export default function Dashboard() {
           ))}
         </nav>
 
-        {/* Today's Fishing Conditions at bottom */}
+        {/* TODO change to current weather conditions */}
         <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 text-center z-10 max-w-3xl px-6">
           <p className="text-xl text-white/90 mb-2">Today's Fishing Outlook</p>
           <p className="text-lg text-white/80">{summary}</p>
         </div>
       </section>
 
-      {/* DASHBOARD BELOW HERO */}
+      {/* TODO change to divided species cards */}
       <div className="p-6 bg-gray-100">
         <div className="max-w-3xl mx-auto space-y-6">
           <SummaryCard summary={summary} />

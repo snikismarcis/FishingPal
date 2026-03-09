@@ -18,6 +18,7 @@ public class ConditionsController {
         this.conditionsService = conditionsService;
     }
 
+    // TODO add option to choose location based on city name
     @GetMapping
     public ConditionsResponseDto getConditions(
             @RequestParam(defaultValue = "56.9") double lat,

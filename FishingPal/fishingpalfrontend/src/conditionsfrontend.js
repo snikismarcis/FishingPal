@@ -19,7 +19,7 @@ export default function ConditionsDashboard() {
 
   useEffect(() => {
     fetchConditions();
-    const interval = setInterval(fetchConditions, 60 * 1000); // refresh every minute
+    const interval = setInterval(fetchConditions, 60 * 1000);
     return () => clearInterval(interval);
   }, []);
 
