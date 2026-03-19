@@ -13,7 +13,7 @@ public class PrecipitationEvaluator extends RangeRuleEvaluator implements Metric
     }
 
     @Override
-    public MetricAssessment evaluate(WeatherSnapshot weather) {
-        return evaluateRange("precipitation", weather.getPrecipitation());
+    public MetricAssessment evaluate(WeatherSnapshot weather, String species) {
+        return evaluateRange("precipitation", weather.getPrecipitation(), species);
     }
 }

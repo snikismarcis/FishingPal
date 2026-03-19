@@ -13,7 +13,7 @@ public class PressureEvaluator extends RangeRuleEvaluator implements MetricEvalu
     }
 
     @Override
-    public MetricAssessment evaluate(WeatherSnapshot weather) {
-        return evaluateRange("pressure", weather.getPressure());
+    public MetricAssessment evaluate(WeatherSnapshot weather, String species) {
+        return evaluateRange("pressure", weather.getPressure(), species);
     }
 }

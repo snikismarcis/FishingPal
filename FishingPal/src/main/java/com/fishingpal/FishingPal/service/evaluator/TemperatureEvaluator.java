@@ -13,7 +13,7 @@ public class TemperatureEvaluator extends RangeRuleEvaluator implements MetricEv
     }
 
     @Override
-    public MetricAssessment evaluate(WeatherSnapshot weather) {
-        return evaluateRange("temperature", weather.getTemperature());
+    public MetricAssessment evaluate(WeatherSnapshot weather, String species) {
+        return evaluateRange("temperature", weather.getTemperature(), species);
     }
 }

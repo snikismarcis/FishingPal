@@ -39,5 +39,7 @@ public class OpenMeteoResponse {
         public List<Double> uv_index_max;
         public List<Double> precipitation_sum;
         public List<Double> wind_speed_10m_max;
+        public List<String> sunrise;
+        public List<String> sunset;
     }
 }

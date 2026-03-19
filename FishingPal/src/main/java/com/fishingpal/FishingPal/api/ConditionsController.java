@@ -18,11 +18,11 @@ public class ConditionsController {
         this.conditionsService = conditionsService;
     }
 
-    // TODO add option to choose location based on city name
     @GetMapping
     public ConditionsResponseDto getConditions(
             @RequestParam(defaultValue = "56.9") double lat,
-            @RequestParam(defaultValue = "24.1") double lon) {
-        return conditionsService.getCurrentConditions(lat, lon);
+            @RequestParam(defaultValue = "24.1") double lon,
+            @RequestParam(defaultValue = "perch") String species) {
+        return conditionsService.getCurrentConditions(lat, lon, species);
     }
 }

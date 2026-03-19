@@ -12,6 +12,8 @@ import java.util.List;
 public class ConditionsResponseDto {
     private LocationDto location;
     private Instant timestamp;
+    private String species;
     private String summary;
     private List<MetricAssessmentDto> metrics;
+    private WeatherDataDto weatherData;
 }

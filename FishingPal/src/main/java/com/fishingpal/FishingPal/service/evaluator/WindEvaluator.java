@@ -13,7 +13,7 @@ public class WindEvaluator extends RangeRuleEvaluator implements MetricEvaluator
     }
 
     @Override
-    public MetricAssessment evaluate(WeatherSnapshot weather) {
-        return evaluateRange("wind", weather.getWindSpeed());
+    public MetricAssessment evaluate(WeatherSnapshot weather, String species) {
+        return evaluateRange("wind", weather.getWindSpeed(), species);
     }
 }

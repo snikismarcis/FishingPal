@@ -4,28 +4,26 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fishingpal.FishingPal.domain.Favorability;
 import com.fishingpal.FishingPal.domain.MetricAssessment;
 import com.fishingpal.FishingPal.infrastructure.weather.rules.RuleLoader;
-import org.springframework.beans.factory.annotation.Value;
 
 public abstract class RangeRuleEvaluator {
 
     private final RuleLoader ruleLoader;
 
-    @Value("${fishingpal.target-species:perch}")
-    private String targetSpecies;
-
     protected RangeRuleEvaluator(RuleLoader ruleLoader) {
         this.ruleLoader = ruleLoader;
     }
 
-    protected MetricAssessment evaluateRange(String metric, double value) {
+    protected MetricAssessment evaluateRange(String metric, double value, String species) {
 
         JsonNode ruleSet = ruleLoader.getRule(metric);
 
         String unit = ruleSet.path("unit").asText();
 
         JsonNode rules;
-        if (ruleSet.has("species")) {
-            rules = ruleSet.path("species").path(targetSpecies);
+        if (ruleSet.has("species") && ruleSet.path("species").has(species)) {
+            rules = ruleSet.path("species").path(species);
+        } else if (ruleSet.has("species")) {
+            rules = ruleSet.path("species").elements().next();
         } else {
             rules = ruleSet.path("rules");
         }
@@ -47,7 +45,7 @@ public abstract class RangeRuleEvaluator {
                         favorability,
                         value,
                         unit,
-                        String.format("%s (%.1f %s)", reason, value, unit)
+                        reason
                 );
             }
         }

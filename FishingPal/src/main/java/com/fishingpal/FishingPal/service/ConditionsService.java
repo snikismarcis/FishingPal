@@ -3,6 +3,7 @@ package com.fishingpal.FishingPal.service;
 import com.fishingpal.FishingPal.api.dto.ConditionsResponseDto;
 import com.fishingpal.FishingPal.api.dto.LocationDto;
 import com.fishingpal.FishingPal.api.dto.MetricAssessmentDto;
+import com.fishingpal.FishingPal.api.dto.WeatherDataDto;
 import com.fishingpal.FishingPal.domain.MetricAssessment;
 import com.fishingpal.FishingPal.domain.weather.WeatherSnapshot;
 import com.fishingpal.FishingPal.infrastructure.weather.WeatherProvider;
@@ -33,12 +34,13 @@ public class ConditionsService {
         this.aggregator = aggregator;
     }
 
-    public ConditionsResponseDto getCurrentConditions(double lat, double lon) {
-        log.info("Fetching current weather for lat={}, lon={}", lat, lon);
+    public ConditionsResponseDto getCurrentConditions(double lat, double lon, String species) {
+        log.info("Fetching conditions for lat={}, lon={}, species={}", lat, lon, species);
         WeatherSnapshot weather = weatherProvider.getCurrentWeather(lat, lon);
+        WeatherDataDto weatherData = weatherProvider.getFullWeatherData(lat, lon);
 
         List<MetricAssessment> assessments = evaluators.stream()
-                .map(e -> e.evaluate(weather))
+                .map(e -> e.evaluate(weather, species))
                 .toList();
 
         String summary = aggregator.summarize(assessments);
@@ -54,9 +56,11 @@ public class ConditionsService {
 
         return new ConditionsResponseDto(
                 new LocationDto(String.format("%.4f,%.4f", lat, lon),
-                        String.format("%.2f°N, %.2f°E", lat, lon)),
+                        String.format("%.2f\u00b0N, %.2f\u00b0E", lat, lon)),
                 Instant.now(),
+                species,
                 summary,
-                metricDtos);
+                metricDtos,
+                weatherData);
     }
 }
