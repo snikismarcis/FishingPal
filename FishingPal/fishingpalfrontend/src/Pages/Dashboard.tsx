@@ -51,7 +51,7 @@ export default function Dashboard() {
 
         
 
-        <div className="absolute left-0 top-0 h-full z-10 flex items-center justify-center"
+        <div className="absolute left-0 top-0 h-full z-10 flex items-end justify-center"
           style={{ opacity: 0.7 - fadeProgress }}
         >
           <h1
@@ -62,7 +62,17 @@ export default function Dashboard() {
               transform: "rotate(180deg)",
             }}
           >
-            F I S H I N G P A L
+            F I S H I N G
+          </h1>
+          <h1
+            className="text-[7vw] font-bold tracking-wider leading-[0.8em] select-none"
+            style={{
+              writingMode: "vertical-rl",
+              color: "rgba(255,255,255,0.8)",
+              transform: "rotate(180deg)",
+            }}
+          >
+            P A L
           </h1>
         </div>
 

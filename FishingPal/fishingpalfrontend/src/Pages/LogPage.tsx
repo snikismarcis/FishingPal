@@ -82,7 +82,6 @@ export default function LogPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Top bar */}
       <div className="sticky top-0 bg-white/95 backdrop-blur-sm border-b border-gray-200 z-20">
         <div className="max-w-2xl mx-auto px-4 py-3 flex items-center justify-between">
           <Link to="/" className="text-xl font-bold text-blue-600">FishingPal</Link>
@@ -138,14 +137,12 @@ export default function LogPage() {
           </div>
         )}
 
-        {/* Loading */}
         {loading && (
           <div className="flex justify-center py-12">
             <div className="animate-spin rounded-full h-6 w-6 border-2 border-blue-600 border-t-transparent"></div>
           </div>
         )}
 
-        {/* Feed */}
         {!loading && posts.length === 0 && (
           <p className="text-center text-gray-400 py-12 text-sm">No posts yet. Be the first!</p>
         )}
@@ -163,7 +160,6 @@ export default function LogPage() {
                 </div>
                 <p className="text-sm text-gray-700 mt-1 whitespace-pre-wrap">{post.content}</p>
 
-                {/* Actions */}
                 <div className="flex items-center gap-4 mt-3">
                   {isLoggedIn && (
                     <button

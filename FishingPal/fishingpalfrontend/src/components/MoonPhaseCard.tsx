@@ -33,6 +33,11 @@ export default function MoonPhaseCard() {
                 {daysToFullMoon === 0 ? "Today" : `${daysToFullMoon} days`}
               </span>
             </div>
+            <div>
+              <p className="text-xs text-gray-500 leading-relaxed italic">
+                Bright moonlight increases nocturnal feeding, usually during full or new moon.
+              </p>
+            </div>
           </div>
         </div>
       </div>
