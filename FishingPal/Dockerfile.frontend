@@ -1,0 +1,14 @@
+FROM node:25
+
+WORKDIR /app    
+
+COPY fishingpalfrontend/package*.json ./
+
+RUN npm install
+
+COPY fishingpalfrontend .
+
+ENV PORT=3000
+EXPOSE 3000
+
+CMD ["npm", "start"]
