@@ -4,6 +4,7 @@ import Dashboard from "./Pages/Dashboard.tsx"
 import LoginPage from "./Pages/LoginPage.tsx"
 import RegisterPage from "./Pages/RegisterPage.tsx"
 import LogPage from "./Pages/LogPage.tsx"
+import CommunityPage from "./Pages/CommunityPage.tsx"
 import './index.css';
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/log" element={<LogPage />} />
+          <Route path="/community" element={<CommunityPage />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

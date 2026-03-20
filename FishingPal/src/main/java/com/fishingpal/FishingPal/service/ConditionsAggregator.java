@@ -18,12 +18,12 @@ public class ConditionsAggregator {
                 .filter(m -> m.favorability() == Favorability.FAVORABLE)
                 .count();
 
-        if (anyUnfavorable) {
-            return Favorability.UNFAVORABLE;
+        if (!anyUnfavorable && favorableCount >= 2) {
+            return Favorability.FAVORABLE;
         }
 
-        if (favorableCount == metrics.size()) {
-            return Favorability.FAVORABLE;
+        if (anyUnfavorable) {
+            return Favorability.UNFAVORABLE;
         }
 
         return Favorability.NEUTRAL;

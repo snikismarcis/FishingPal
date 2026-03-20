@@ -32,6 +32,8 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET, "/conditions/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/species").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/logs").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/community").permitAll()
+                .requestMatchers(HttpMethod.GET, "/uploads/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/actuator/**").permitAll()
                 .anyRequest().authenticated()
             )

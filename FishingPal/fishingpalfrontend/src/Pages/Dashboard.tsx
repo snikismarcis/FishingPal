@@ -9,11 +9,8 @@ import { useLocation } from "../hooks/useLocation";
 import { useAuth } from "../context/AuthContext.tsx";
 
 const NAV_ITEMS = [
-  { label: "Conditions", to: "/" },
   { label: "Log", to: "/log" },
-  { label: "Calendar", to: "/" },
-  { label: "Community", to: "/" },
-  { label: "Knowledge", to: "/" },
+  { label: "Community", to: "/community" },
 ];
 
 export default function Dashboard() {
@@ -44,7 +41,9 @@ export default function Dashboard() {
           muted
           loop
           playsInline
-          className="absolute top-0 left-0 w-full h-full object-cover"
+          disablePictureInPicture
+          controlsList="nodownload noplaybackrate nofullscreen"
+          className="absolute top-0 left-0 w-full h-full object-cover pointer-events-none"
         >
           <source src="/hero-video.mp4" type="video/mp4" />
         </video>
@@ -137,9 +136,19 @@ export default function Dashboard() {
           )}
         </nav>
 
-        <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 text-center z-10 max-w-3xl px-6">
-          <p className="text-xl text-white/90 mb-2">Today's Fishing Outlook</p>
-          <p className="text-lg text-white/80">{data?.summary || "Loading conditions..."}</p>
+        <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 z-10 px-6">
+          {data?.weatherData ? (
+            <div className="flex items-center gap-6 text-white/80 text-sm">
+              <span className="text-white/90 font-medium">Now</span>
+              <span>{data.weatherData.currentTemp.toFixed(0)}°C</span>
+              <span>{data.weatherData.currentWindSpeed.toFixed(0)} km/h</span>
+              <span>{data.weatherData.currentPressure.toFixed(0)} hPa</span>
+              <span>{data.weatherData.currentCloudCover}%</span>
+              <span>{data.weatherData.currentPrecipitation} mm</span>
+            </div>
+          ) : (
+            <p className="text-white/60 text-sm">Loading weather...</p>
+          )}
         </div>
       </section>
 
