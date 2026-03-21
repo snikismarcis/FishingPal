@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from "react"
 import { ConditionsResponse } from "../Types/metric"
 
-const API_BASE = "http://localhost:8080"
+const API_BASE = "https://fishingpal-backend-production.up.railway.app"
 
 export function useConditions(species: string, lat?: number, lon?: number) {
   const [data, setData] = useState<ConditionsResponse | null>(null)

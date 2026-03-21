@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useCallback } from "react"
 import type { ReactNode } from "react"
 
-const API_BASE = "http://localhost:8080"
+const API_BASE = "https://fishingpal-backend-production.up.railway.app"
 
 type AuthState = {
   token: string | null

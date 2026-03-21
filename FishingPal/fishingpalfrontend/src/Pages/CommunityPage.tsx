@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback, useRef } from "react"
 import { useAuth } from "../context/AuthContext.tsx"
 import { Link } from "react-router-dom"
 
-const API_BASE = "http://localhost:8080"
+const API_BASE = "https://fishingpal-backend-production.up.railway.app"
 
 type Post = {
   id: string
