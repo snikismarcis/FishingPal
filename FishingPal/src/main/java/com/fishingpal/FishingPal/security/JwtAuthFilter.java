@@ -28,6 +28,18 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
+
+        String path = request.getRequestURI();
+        if (path.startsWith("/api/auth") ||
+        path.startsWith("/conditions") ||
+        path.startsWith("/species") ||
+        path.startsWith("/uploads") ||
+        path.startsWith("/api/logs") ||
+        path.startsWith("/api/community") ||
+        path.startsWith("/actuator")) {
+            filterChain.doFilter(request, response);
+            return;
+        }                               
         String header = request.getHeader("Authorization");
         if (header == null || !header.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
