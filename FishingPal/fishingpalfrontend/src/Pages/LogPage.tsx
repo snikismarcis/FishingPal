@@ -29,12 +29,15 @@ export default function LogPage() {
   const fetchPosts = useCallback(async () => {
     try {
       const res = await fetch(`${API_BASE}/api/logs`, {
-        headers: token ? { Authorization: `Bearer ${token}` } : {},
+        headers: headers(),
       })
       if (res.ok) setPosts(await res.json())
-    } catch {}
-    finally { setLoading(false) }
-  }, [token])
+    } catch (err) {
+      console.error(err)
+    } finally {
+      setLoading(false)
+    }
+  }, [headers])
 
   useEffect(() => { fetchPosts() }, [fetchPosts])
 
@@ -50,6 +53,8 @@ export default function LogPage() {
       if (res.ok) {
         setContent("")
         fetchPosts()
+      } else {
+      console.error("Failed to post:", res.status) 
       }
     } finally { setPosting(false) }
   }
