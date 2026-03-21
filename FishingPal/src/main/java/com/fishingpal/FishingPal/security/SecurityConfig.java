@@ -56,7 +56,7 @@ public class SecurityConfig {
 public org.springframework.web.cors.CorsConfigurationSource corsConfigurationSource() {
     var config = new org.springframework.web.cors.CorsConfiguration();
 
-    config.setAllowedOrigins(java.util.List.of(
+    config.setAllowedOriginPatterns(java.util.List.of(
         "http://localhost:3000",
         "https://fishing-pal.vercel.app",
         "http://localhost:5173"
