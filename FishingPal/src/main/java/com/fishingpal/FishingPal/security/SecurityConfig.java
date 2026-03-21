@@ -58,7 +58,7 @@ public org.springframework.web.cors.CorsConfigurationSource corsConfigurationSou
 
     config.setAllowedOrigins(java.util.List.of(
         "http://localhost:3000",
-        "https://fishing-rl0bt6kia-marcislacis-6168s-projects.vercel.app",
+        "https://fishing-pal.vercel.app",
         "http://localhost:5173"
     ));
     config.setAllowedMethods(java.util.List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
