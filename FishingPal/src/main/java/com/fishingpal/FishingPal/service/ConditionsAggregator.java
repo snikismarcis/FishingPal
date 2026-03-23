@@ -18,7 +18,7 @@ public class ConditionsAggregator {
                 .filter(m -> m.favorability() == Favorability.FAVORABLE)
                 .count();
 
-        if (!anyUnfavorable && favorableCount >= 2) {
+        if (!anyUnfavorable && favorableCount >= 1) {
             return Favorability.FAVORABLE;
         }
 
