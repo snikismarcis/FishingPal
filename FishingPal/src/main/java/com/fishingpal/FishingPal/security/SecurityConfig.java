@@ -60,6 +60,7 @@ public org.springframework.web.cors.CorsConfigurationSource corsConfigurationSou
 
     config.setAllowedOriginPatterns(java.util.List.of(
         "http://localhost:3000",
+        "https://*.vercel.app",
         "https://fishing-pal.vercel.app",
         "http://localhost:5173"
     ));
