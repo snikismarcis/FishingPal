@@ -1,0 +1,93 @@
+{
+  "metric": "temperature",
+  "unit": "°C",
+  "species": {
+
+    "bream": [
+      {
+        "min": -100.0,
+        "max": 10.0,
+        "favorability": "NEUTRAL",
+        "reason": "Cold water slows bream metabolism but they still feed occasionally."
+      },
+      {
+        "min": 10.0,
+        "max": 18.0,
+        "favorability": "FAVORABLE",
+        "reason": "Water is warming and bream begin actively feeding."
+      },
+      {
+        "min": 18.0,
+        "max": 25.0,
+        "favorability": "FAVORABLE",
+        "reason": "Optimal feeding temperature for bream."
+      },
+      {
+        "min": 25.0,
+        "max": 30.0,
+        "favorability": "NEUTRAL",
+        "reason": "Warm water may push bream deeper during daytime."
+      },
+      {
+        "min": 30.0,
+        "max": 100.0,
+        "favorability": "UNFAVORABLE",
+        "reason": "Very warm water reduces oxygen and feeding activity."
+      }
+    ],
+
+    "pike": [
+      {
+        "min": -100,
+        "max": 6,
+        "favorability": "NEUTRAL",
+        "reason": "Pike remain active in cold water but metabolism is reduced."
+      },
+      {
+        "min": 6,
+        "max": 18,
+        "favorability": "FAVORABLE",
+        "reason": "Optimal hunting temperature for pike."
+      },
+      {
+        "min": 18,
+        "max": 21,
+        "favorability": "NEUTRAL",
+        "reason": "Warm water begins to reduce pike activity."
+      },
+      {
+        "min": 21,
+        "max": 100,
+        "favorability": "UNFAVORABLE",
+        "reason": "High temperatures cause thermal stress and push pike into deeper water."
+      }
+    ],
+
+    "perch": [
+      {
+        "min": -100,
+        "max": 8,
+        "favorability": "NEUTRAL",
+        "reason": "Cold water slows perch activity but they still feed."
+      },
+      {
+        "min": 8,
+        "max": 17,
+        "favorability": "FAVORABLE",
+        "reason": "Perch feed actively in moderate temperatures."
+      },
+      {
+        "min": 17,
+        "max": 25,
+        "favorability": "FAVORABLE",
+        "reason": "Optimal feeding range for perch."
+      },
+      {
+        "min": 25,
+        "max": 100,
+        "favorability": "NEUTRAL",
+        "reason": "Warm water reduces daytime activity."
+      }
+    ]
+  }
+}

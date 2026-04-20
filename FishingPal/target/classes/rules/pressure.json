@@ -1,0 +1,70 @@
+{
+  "metric": "pressure",
+  "unit": "hPa",
+  "species": {
+
+    "bream": [
+      {
+        "min": 0,
+        "max": 1005,
+        "favorability": "FAVORABLE",
+        "reason": "Low pressure often stimulates feeding activity."
+      },
+      {
+        "min": 1005,
+        "max": 1018,
+        "favorability": "FAVORABLE",
+        "reason": "Moderate pressure supports steady fish behavior."
+      },
+      {
+        "min": 1018,
+        "max": 1035,
+        "favorability": "NEUTRAL",
+        "reason": "High pressure can make fish slightly less active."
+      }
+    ],
+
+    "pike": [
+      {
+        "min": 0,
+        "max": 1005,
+        "favorability": "FAVORABLE",
+        "reason": "Lower pressure encourages pike to hunt."
+      },
+      {
+        "min": 1005,
+        "max": 1018,
+        "favorability": "FAVORABLE",
+        "reason": "Stable pressure keeps pike active."
+      },
+      {
+        "min": 1018,
+        "max": 1035,
+        "favorability": "NEUTRAL",
+        "reason": "Very high pressure may slow pike activity."
+      }
+    ],
+
+    "perch": [
+      {
+        "min": 0,
+        "max": 1005,
+        "favorability": "NEUTRAL",
+        "reason": "Perch remain active but cautious in low pressure."
+      },
+      {
+        "min": 1005,
+        "max": 1018,
+        "favorability": "FAVORABLE",
+        "reason": "Moderate pressure supports consistent perch feeding."
+      },
+      {
+        "min": 1018,
+        "max": 1035,
+        "favorability": "NEUTRAL",
+        "reason": "Higher pressure slightly reduces perch activity."
+      }
+    ]
+
+  }
+}
