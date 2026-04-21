@@ -52,6 +52,9 @@ public class LogController {
     public ResponseEntity<LogPostResponse> createPost(
             @Valid @RequestBody LogPostRequest req,
             @AuthenticationPrincipal UserDetails userDetails) {
+        if (userDetails == null) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        }
         User user = userRepository.findByUsername(userDetails.getUsername())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED));
         var post = logPostRepository.save(new LogPost(user, req.content()));
@@ -62,6 +65,9 @@ public class LogController {
     @Transactional
     public LogPostResponse toggleLike(@PathVariable UUID id,
                                        @AuthenticationPrincipal UserDetails userDetails) {
+        if (userDetails == null) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        }
         User user = userRepository.findByUsername(userDetails.getUsername())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED));
         LogPost post = logPostRepository.findById(id)
@@ -78,6 +84,9 @@ public class LogController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePost(@PathVariable UUID id,
                                            @AuthenticationPrincipal UserDetails userDetails) {
+        if (userDetails == null) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        }
         LogPost post = logPostRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         if (!post.getUser().getUsername().equals(userDetails.getUsername())) {

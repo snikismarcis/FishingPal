@@ -46,6 +46,9 @@ public class CommunityController {
             @RequestParam("image") MultipartFile image,
             @RequestParam(value = "caption", required = false, defaultValue = "") String caption,
             @AuthenticationPrincipal UserDetails userDetails) {
+        if (userDetails == null) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        }
         if (image.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Image is required");
         }
@@ -65,6 +68,9 @@ public class CommunityController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable UUID id,
                                        @AuthenticationPrincipal UserDetails userDetails) {
+        if (userDetails == null) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        }
         CommunityPost post = communityPostRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         if (!post.getUser().getUsername().equals(userDetails.getUsername())) {
