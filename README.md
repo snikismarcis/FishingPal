@@ -3,6 +3,10 @@
 FishingPal is a full-stack app for fishing conditions, trip logs, and community sharing.
 This repository contains the backend API, React frontend, and project documentation.
 
+## Live Demo
+
+`https://fishing-pal.vercel.app`
+
 ## Stack Snapshot
 
 - Backend: Spring Boot 4, Java 21, Spring Security (JWT), Spring Data JPA

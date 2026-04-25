@@ -41,6 +41,7 @@ export default function Dashboard() {
           muted
           loop
           playsInline
+          preload="auto"
           disablePictureInPicture
           controlsList="nodownload noplaybackrate nofullscreen"
           className="absolute top-0 left-0 w-full h-full object-cover pointer-events-none"
