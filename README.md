@@ -5,7 +5,7 @@ This repository contains the backend API, React frontend, and project documentat
 
 ## Live Demo
 
-`https://fishing-pal.vercel.app`
+[link to demo](https://fishing-pal.vercel.app)
 
 ## Stack Snapshot
 
